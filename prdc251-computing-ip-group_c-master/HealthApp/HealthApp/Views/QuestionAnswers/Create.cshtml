@@ -1,0 +1,103 @@
+﻿@model HealthApp.Models.QuestionAnswer
+
+@{
+    ViewBag.Title = "Create";
+
+    @*Validates wehter or not a user has logged on*@
+    if (Session["LoggedDoctorId"] == null)
+    {
+        Response.Redirect("~/Login/DoctorLogin");
+    }
+}
+
+<h2>Create</h2>
+<h3>Question : @Session["Question"].ToString()</h3>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>QuestionAnswer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (Session["QuestionType"].ToString() == "Multiple Choice")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionID, "QuestionID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionID, new { htmlAttributes = new { @class = "form-control-plaintext", @readonly = "readonly", Value = Session["QuestionID"] } })
+                    @Html.ValidationMessageFor(model => model.QuestionID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionAnswer1, "Question Answer", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionAnswer1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuestionAnswer1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        @if (Session["QuestionType"].ToString() == "Audio")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionID, "QuestionID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionID, new { htmlAttributes = new { @class = "form-control-plaintext", @readonly = "readonly", Value = Session["QuestionID"] } })
+                    @Html.ValidationMessageFor(model => model.QuestionID, "", new { @class = "text-danger" })
+
+                    <input type="file" name="file" value="Select File" class="btn btn-outline-success">
+                    <input type="submit" value="Upload" onclick="Upload" class="btn btn-primary" />
+
+                </div>
+            </div>
+        }
+
+        @if (Session["QuestionType"].ToString() == "Video")
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionID, "QuestionID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionID, new { htmlAttributes = new { @class = "form-control-plaintext", @readonly = "readonly", Value = Session["QuestionID"] } })
+                    @Html.ValidationMessageFor(model => model.QuestionID, "", new { @class = "text-danger" })
+
+                    <input type="file" value="Upload" class="btn btn-outline-success">
+                </div>
+            </div>
+        }
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.QuestionID, "QuestionID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("QuestionID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.QuestionID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.QuestionAnswer1, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.QuestionAnswer1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.QuestionAnswer1, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

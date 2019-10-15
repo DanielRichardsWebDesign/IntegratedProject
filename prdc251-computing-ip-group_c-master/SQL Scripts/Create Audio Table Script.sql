@@ -1,0 +1,7 @@
+CREATE TABLE [dbo].[Audio]
+(
+	AudioID INT IDENTITY (1,1) PRIMARY KEY,
+	QuestionID INT FOREIGN KEY REFERENCES Questions(QuestionID),
+	AudioName VARCHAR(100),
+	AudioPath VARCHAR(200),
+)

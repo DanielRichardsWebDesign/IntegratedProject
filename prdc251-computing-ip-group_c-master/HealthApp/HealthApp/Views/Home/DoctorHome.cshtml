@@ -1,0 +1,126 @@
+﻿@model IEnumerable<HealthApp.Models.Condition>
+@{
+    Layout = null;
+    ViewBag.Title = "Dashboard";
+    @*Validates wehter or not a user has logged on*@
+    if (Session["LoggedDoctorId"] == null)
+    {
+        Response.Redirect("~/Login/DoctorLogin");
+    }
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Health Monitoring Application - Dashboard</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="navbar-brand text-white" href="@Url.Action("DoctorHome", "Home")">Health Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="@Url.Action("DoctorHome", "Home")">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("ToDoctorMessage", "MessagePage")">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("CreatedSurveys", "Surveys")">Surveys</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Alerts", "Alerts")">Alerts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Responses", "Responses")">Responses</a>
+                </li>
+            </ul>
+            <ul class="ml-auto">
+                <a class="btn btn-danger text-white" href="@Url.Action("LogOut", "Login")">Logout</a>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="display-4">
+                Welcome: Dr.
+
+                @Session["LoggedDoctorLName"].ToString()
+
+            </h1>
+            <p class="lead">View patients, approve requests, view messages and create questions...</p>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="card">
+            <div class="card-header">
+                Find Patient
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Search for Patient</h5>
+                @using (Html.BeginForm("DoctorHome", "Home", FormMethod.Get))
+                {
+                    @Html.TextBox("search", null, new { @class = "form-control" })
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                }
+            </div>
+        </div>
+
+        <hr class="my-4" />
+        <div class="card">
+            <div class="card-header">
+                View Patient Information
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Patient ID</th>
+                            <th scope="col">Patient First Name</th>
+                            <th scope="col">Patient Last Name</th>
+                            <th scope="col">Conditions</th>
+                            <th scope="col">Notes</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="col">@Html.DisplayFor(model => item.PatientID)</th>
+                                <th scope="col">@Html.DisplayFor(model => item.Patient.PatientFName)</th>
+                                <th scope="col">@Html.DisplayFor(model => item.Patient.PatientSName)</th>
+                                <th scope="col">@Html.DisplayFor(model => item.Condition1)</th>
+                                <td>
+                                    @Html.DisplayFor(model => item.ConditionNotes)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.ConditionID })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.ConditionID })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @Html.ActionLink("Create New Condition", "Create", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+</body>
+</html>
+

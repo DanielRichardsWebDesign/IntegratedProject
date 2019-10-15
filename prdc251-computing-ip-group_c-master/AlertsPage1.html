@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="navbar-brand text-white" href="~/dashboard.cshtml">Health Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action(" ToDoctorMessage", "MessagePage" )">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action(" CreatedSurveys", "Surveys" )">Surveys</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action(" Alerts", "Alerts" )">Alerts</a>
+                </li>
+            </ul>
+            <ul class="ml-auto">
+                <a class="btn btn-danger text-white" href="@Url.Action(" LogOut", "Login" )">Logout</a>
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+    <br></br>
+  <h2>Alerts page example</h2>      
+  <p>Here you can see the alerts from specific patients and are able to message them</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Patient ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Reason</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1111</td>
+        <td>John</td>
+        <td>Doe</td>
+        <td>Inactive for 3 weeks</td>
+        <td><button type="button" class="btn btn-primary">Message</button></td>
+      </tr>
+      <tr>
+        <td>1331</td>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>Low answer for a question</td>
+        <td><button type="button" class="btn btn-primary">Message</button></td>
+      </tr>
+      <tr>
+        <td>1222</td>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>Inactive for 10 years</td>
+        <td><button type="button" class="btn btn-primary">Message</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="938db7d612684089b0f640429756c0f2" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="HealthAppModel.Audio" Width="1.5" PointX="7.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Condition" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Doctor" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.DoctorPatientMatch" Width="1.5" PointX="6" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Patient" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.PatientSurveyAnswer" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.QuestionAnswer" Width="1.5" PointX="7.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.QuestionRule" Width="1.5" PointX="7.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Question" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Survey" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthAppModel.Video" Width="1.5" PointX="7.5" PointY="22.75" IsExpanded="true" />
+        <AssociationConnector Association="HealthAppModel.FK__Audio__QuestionI__40058253" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Condition__Patie__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__DoctorPat__Docto__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Survey__DoctorID__2EDAF651" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__DoctorPat__Patie__2645B050" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__PatientSu__Patie__3864608B" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Survey__PatientI__2FCF1A8A" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__PatientSu__Quest__395884C4" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__PatientSu__Quest__3A4CA8FD" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__QuestionA__Quest__3587F3E0" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Rules__QuestionI__3D2915A8" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Questions__Surve__32AB8735" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthAppModel.FK__Videos__Question__42E1EEFE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,76 @@
+﻿@model HealthApp.Models.Doctor
+@{
+    Layout = null;
+}
+<head>
+    <title>Health Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="top-buffer">
+        <div class="col-sm-12">
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="wrapper" style="border-radius:10px; border:1px solid; padding:5px;">
+                    <div class="title">
+                        <h2> Log-in as: Doctor</h2>
+
+                        <a class="btn btn-primary active text-white" href="@Url.Action("ToDoctor", "Login")">Doctor</a>
+                        <a class="btn btn-primary text-white" href="@Url.Action("ToPatient", "Login")">Patient</a>
+
+                    </div>
+                    <div class="form-group">
+                        @using (Html.BeginForm("DoctorLogin", "Login", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <table>
+                                <tr>
+                                    <td>@Html.LabelFor(dl => dl.DoctorEmail)</td>
+                                    <td>@Html.TextBoxFor(dl => dl.DoctorEmail) </td>
+                                <tr>
+                                    <td></td>
+                                    <td>@Html.ValidationMessageFor(dl => dl.DoctorEmail)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.LabelFor(dl => dl.DoctorPass) </td>
+                                    <td>@Html.TextBoxFor(dl => dl.DoctorPass, new { @type = "password" })</td>
+                                <tr>
+                                    <td></td>
+                                    <td>@Html.ValidationMessageFor(dl => dl.DoctorPass)</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label class="field.navigation-error"> @Html.DisplayFor(dl => dl.LoginErrorMessage)</label></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <input type="submit" class="btn btn-default" style="background-color:green; color:white;" value="Submit" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+
+</body>
+@section Scripts{
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+}

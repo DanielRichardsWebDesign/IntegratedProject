@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "UploadVideo";
+
+    @*Validates wehter or not a user has logged on*@
+    if (Session["LoggedDoctorId"] == null)
+    {
+        Response.Redirect("~/Login/DoctorLogin");
+    }
+}
+
+<h2>Upload Video</h2>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("UploadVideo", "Questions", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                <label>Upload Video:</label>
+                <div class="input-group">
+                    @Html.TextBox("videoFile", "", new { type = "file" }) <br />
+                    <input type="submit" value="Upload Video" />
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
+

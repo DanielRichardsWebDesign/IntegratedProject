@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="prdc251CModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Conditions">
+          <Key>
+            <PropertyRef Name="ConditionID" />
+          </Key>
+          <Property Name="ConditionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="Condition" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ConditionNotes" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DoctorPatientMatches">
+          <Key>
+            <PropertyRef Name="MatchID" />
+          </Key>
+          <Property Name="MatchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="DoctorFName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorSName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="PatientFName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientSName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doctors">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorFName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorSName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorPass" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientFName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientSName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientLoginCode" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="PatientPass" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PatientSurveyAnswers">
+          <Key>
+            <PropertyRef Name="PatientSurveyAnswerID" />
+          </Key>
+          <Property Name="PatientSurveyAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="QuestionAnswerID" Type="int" Nullable="false" />
+          <Property Name="TimeStarted" Type="datetime" Nullable="false" />
+          <Property Name="TimeSubmitted" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionAnswers">
+          <Key>
+            <PropertyRef Name="QuestionAnswerID" />
+          </Key>
+          <Property Name="QuestionAnswerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="QuestionAnswer" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyID" Type="int" Nullable="false" />
+          <Property Name="Question" Type="varchar(max)" Nullable="false" />
+          <Property Name="QuestionType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorID" Type="int" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="SurveyTitle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SurveyDesc" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SurveyQuestionAmount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Condition__Patie__44FF419A">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Conditions" Type="Self.Conditions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Conditions">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorPat__Docto__33D4B598">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1" />
+          <End Role="DoctorPatientMatches" Type="Self.DoctorPatientMatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="DoctorPatientMatches">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorPat__Patie__34C8D9D1">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="DoctorPatientMatches" Type="Self.DoctorPatientMatches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="DoctorPatientMatches">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Patie__47DBAE45">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Quest__48CFD27E">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Quest__49C3F6B7">
+          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswers">
+              <PropertyRef Name="QuestionAnswerID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="QuestionAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Quest__412EB0B6">
+          <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
+          <End Role="QuestionAnswers" Type="Self.QuestionAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Surve__4222D4EF">
+          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="SurveyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Survey__DoctorID__3D5E1FD2">
+          <End Role="Doctors" Type="Self.Doctors" Multiplicity="1" />
+          <End Role="Survey" Type="Self.Survey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Survey">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Survey__PatientI__3E52440B">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Survey" Type="Self.Survey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Survey">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="prdc251CModelStoreContainer">
+          <EntitySet Name="Conditions" EntityType="Self.Conditions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorPatientMatches" EntityType="Self.DoctorPatientMatches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientSurveyAnswers" EntityType="Self.PatientSurveyAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Survey" EntityType="Self.Survey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Condition__Patie__44FF419A" Association="Self.FK__Condition__Patie__44FF419A">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Conditions" EntitySet="Conditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorPat__Docto__33D4B598" Association="Self.FK__DoctorPat__Docto__33D4B598">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="DoctorPatientMatches" EntitySet="DoctorPatientMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorPat__Patie__34C8D9D1" Association="Self.FK__DoctorPat__Patie__34C8D9D1">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="DoctorPatientMatches" EntitySet="DoctorPatientMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Patie__47DBAE45" Association="Self.FK__PatientSu__Patie__47DBAE45">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Quest__48CFD27E" Association="Self.FK__PatientSu__Quest__48CFD27E">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Quest__49C3F6B7" Association="Self.FK__PatientSu__Quest__49C3F6B7">
+            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Quest__412EB0B6" Association="Self.FK__QuestionA__Quest__412EB0B6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Surve__4222D4EF" Association="Self.FK__Questions__Surve__4222D4EF">
+            <End Role="Survey" EntitySet="Survey" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Survey__DoctorID__3D5E1FD2" Association="Self.FK__Survey__DoctorID__3D5E1FD2">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Survey" EntitySet="Survey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Survey__PatientI__3E52440B" Association="Self.FK__Survey__PatientI__3E52440B">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Survey" EntitySet="Survey" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="prdc251CModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Condition">
+          <Key>
+            <PropertyRef Name="ConditionID" />
+          </Key>
+          <Property Name="ConditionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="Condition1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ConditionNotes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Condition__Patie__44FF419A" FromRole="Conditions" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="DoctorPatientMatch">
+          <Key>
+            <PropertyRef Name="MatchID" />
+          </Key>
+          <Property Name="MatchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="DoctorFName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorSName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="PatientFName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientSName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__DoctorPat__Docto__33D4B598" FromRole="DoctorPatientMatches" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__DoctorPat__Patie__34C8D9D1" FromRole="DoctorPatientMatches" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorFName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorSName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DoctorPass" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DoctorPatientMatches" Relationship="Self.FK__DoctorPat__Docto__33D4B598" FromRole="Doctors" ToRole="DoctorPatientMatches" />
+          <NavigationProperty Name="Surveys" Relationship="Self.FK__Survey__DoctorID__3D5E1FD2" FromRole="Doctors" ToRole="Survey" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientFName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientSName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientLoginCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PatientPass" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Conditions" Relationship="Self.FK__Condition__Patie__44FF419A" FromRole="Patients" ToRole="Conditions" />
+          <NavigationProperty Name="DoctorPatientMatches" Relationship="Self.FK__DoctorPat__Patie__34C8D9D1" FromRole="Patients" ToRole="DoctorPatientMatches" />
+          <NavigationProperty Name="PatientSurveyAnswers" Relationship="Self.FK__PatientSu__Patie__47DBAE45" FromRole="Patients" ToRole="PatientSurveyAnswers" />
+          <NavigationProperty Name="Surveys" Relationship="Self.FK__Survey__PatientI__3E52440B" FromRole="Patients" ToRole="Survey" />
+        </EntityType>
+        <EntityType Name="PatientSurveyAnswer">
+          <Key>
+            <PropertyRef Name="PatientSurveyAnswerID" />
+          </Key>
+          <Property Name="PatientSurveyAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionAnswerID" Type="Int32" Nullable="false" />
+          <Property Name="TimeStarted" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeSubmitted" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__PatientSu__Patie__47DBAE45" FromRole="PatientSurveyAnswers" ToRole="Patients" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__PatientSu__Quest__48CFD27E" FromRole="PatientSurveyAnswers" ToRole="Questions" />
+          <NavigationProperty Name="QuestionAnswer" Relationship="Self.FK__PatientSu__Quest__49C3F6B7" FromRole="PatientSurveyAnswers" ToRole="QuestionAnswers" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="QuestionAnswerID" />
+          </Key>
+          <Property Name="QuestionAnswerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionID" Type="Int32" Nullable="false" />
+          <Property Name="QuestionAnswer1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PatientSurveyAnswers" Relationship="Self.FK__PatientSu__Quest__49C3F6B7" FromRole="QuestionAnswers" ToRole="PatientSurveyAnswers" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__QuestionA__Quest__412EB0B6" FromRole="QuestionAnswers" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyID" Type="Int32" Nullable="false" />
+          <Property Name="Question1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PatientSurveyAnswers" Relationship="Self.FK__PatientSu__Quest__48CFD27E" FromRole="Questions" ToRole="PatientSurveyAnswers" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Self.FK__QuestionA__Quest__412EB0B6" FromRole="Questions" ToRole="QuestionAnswers" />
+          <NavigationProperty Name="Survey" Relationship="Self.FK__Questions__Surve__4222D4EF" FromRole="Questions" ToRole="Survey" />
+        </EntityType>
+        <EntityType Name="Survey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorID" Type="Int32" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="SurveyTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SurveyDesc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SurveyQuestionAmount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK__Survey__DoctorID__3D5E1FD2" FromRole="Survey" ToRole="Doctors" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK__Survey__PatientI__3E52440B" FromRole="Survey" ToRole="Patients" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Surve__4222D4EF" FromRole="Survey" ToRole="Questions" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Condition__Patie__44FF419A">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Conditions" Type="Self.Condition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Conditions">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorPat__Docto__33D4B598">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="DoctorPatientMatches" Type="Self.DoctorPatientMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="DoctorPatientMatches">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DoctorPat__Patie__34C8D9D1">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="DoctorPatientMatches" Type="Self.DoctorPatientMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="DoctorPatientMatches">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Survey__DoctorID__3D5E1FD2">
+          <End Role="Doctors" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Survey" Type="Self.Survey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctors">
+              <PropertyRef Name="DoctorID" />
+            </Principal>
+            <Dependent Role="Survey">
+              <PropertyRef Name="DoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Patie__47DBAE45">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Survey__PatientI__3E52440B">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Survey" Type="Self.Survey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Survey">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Quest__48CFD27E">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PatientSu__Quest__49C3F6B7">
+          <End Role="QuestionAnswers" Type="Self.QuestionAnswer" Multiplicity="1" />
+          <End Role="PatientSurveyAnswers" Type="Self.PatientSurveyAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionAnswers">
+              <PropertyRef Name="QuestionAnswerID" />
+            </Principal>
+            <Dependent Role="PatientSurveyAnswers">
+              <PropertyRef Name="QuestionAnswerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionA__Quest__412EB0B6">
+          <End Role="Questions" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionAnswers" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questions">
+              <PropertyRef Name="QuestionID" />
+            </Principal>
+            <Dependent Role="QuestionAnswers">
+              <PropertyRef Name="QuestionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Surve__4222D4EF">
+          <End Role="Survey" Type="Self.Survey" Multiplicity="1" />
+          <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Survey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="SurveyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PatientAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Conditions" EntityType="Self.Condition" />
+          <EntitySet Name="DoctorPatientMatches" EntityType="Self.DoctorPatientMatch" />
+          <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="PatientSurveyAnswers" EntityType="Self.PatientSurveyAnswer" />
+          <EntitySet Name="QuestionAnswers" EntityType="Self.QuestionAnswer" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Surveys" EntityType="Self.Survey" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK__Condition__Patie__44FF419A" Association="Self.FK__Condition__Patie__44FF419A">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Conditions" EntitySet="Conditions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorPat__Docto__33D4B598" Association="Self.FK__DoctorPat__Docto__33D4B598">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="DoctorPatientMatches" EntitySet="DoctorPatientMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DoctorPat__Patie__34C8D9D1" Association="Self.FK__DoctorPat__Patie__34C8D9D1">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="DoctorPatientMatches" EntitySet="DoctorPatientMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Survey__DoctorID__3D5E1FD2" Association="Self.FK__Survey__DoctorID__3D5E1FD2">
+            <End Role="Doctors" EntitySet="Doctors" />
+            <End Role="Survey" EntitySet="Surveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Patie__47DBAE45" Association="Self.FK__PatientSu__Patie__47DBAE45">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Survey__PatientI__3E52440B" Association="Self.FK__Survey__PatientI__3E52440B">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Survey" EntitySet="Surveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Quest__48CFD27E" Association="Self.FK__PatientSu__Quest__48CFD27E">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PatientSu__Quest__49C3F6B7" Association="Self.FK__PatientSu__Quest__49C3F6B7">
+            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+            <End Role="PatientSurveyAnswers" EntitySet="PatientSurveyAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionA__Quest__412EB0B6" Association="Self.FK__QuestionA__Quest__412EB0B6">
+            <End Role="Questions" EntitySet="Questions" />
+            <End Role="QuestionAnswers" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Surve__4222D4EF" Association="Self.FK__Questions__Surve__4222D4EF">
+            <End Role="Survey" EntitySet="Surveys" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="prdc251CModelStoreContainer" CdmEntityContainer="PatientAppEntities">
+          <EntitySetMapping Name="Conditions">
+            <EntityTypeMapping TypeName="prdc251CModel.Condition">
+              <MappingFragment StoreEntitySet="Conditions">
+                <ScalarProperty Name="ConditionID" ColumnName="ConditionID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="Condition1" ColumnName="Condition" />
+                <ScalarProperty Name="ConditionNotes" ColumnName="ConditionNotes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorPatientMatches">
+            <EntityTypeMapping TypeName="prdc251CModel.DoctorPatientMatch">
+              <MappingFragment StoreEntitySet="DoctorPatientMatches">
+                <ScalarProperty Name="MatchID" ColumnName="MatchID" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="DoctorFName" ColumnName="DoctorFName" />
+                <ScalarProperty Name="DoctorSName" ColumnName="DoctorSName" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+                <ScalarProperty Name="PatientSName" ColumnName="PatientSName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doctors">
+            <EntityTypeMapping TypeName="prdc251CModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctors">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="DoctorFName" ColumnName="DoctorFName" />
+                <ScalarProperty Name="DoctorSName" ColumnName="DoctorSName" />
+                <ScalarProperty Name="DoctorEmail" ColumnName="DoctorEmail" />
+                <ScalarProperty Name="DoctorPass" ColumnName="DoctorPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="prdc251CModel.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientFName" ColumnName="PatientFName" />
+                <ScalarProperty Name="PatientSName" ColumnName="PatientSName" />
+                <ScalarProperty Name="PatientEmail" ColumnName="PatientEmail" />
+                <ScalarProperty Name="PatientLoginCode" ColumnName="PatientLoginCode" />
+                <ScalarProperty Name="PatientPass" ColumnName="PatientPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientSurveyAnswers">
+            <EntityTypeMapping TypeName="prdc251CModel.PatientSurveyAnswer">
+              <MappingFragment StoreEntitySet="PatientSurveyAnswers">
+                <ScalarProperty Name="PatientSurveyAnswerID" ColumnName="PatientSurveyAnswerID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionAnswerID" ColumnName="QuestionAnswerID" />
+                <ScalarProperty Name="TimeStarted" ColumnName="TimeStarted" />
+                <ScalarProperty Name="TimeSubmitted" ColumnName="TimeSubmitted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswers">
+            <EntityTypeMapping TypeName="prdc251CModel.QuestionAnswer">
+              <MappingFragment StoreEntitySet="QuestionAnswers">
+                <ScalarProperty Name="QuestionAnswerID" ColumnName="QuestionAnswerID" />
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionAnswer1" ColumnName="QuestionAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="prdc251CModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Surveys">
+            <EntityTypeMapping TypeName="prdc251CModel.Survey">
+              <MappingFragment StoreEntitySet="Survey">
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="SurveyDesc" ColumnName="SurveyDesc" />
+                <ScalarProperty Name="SurveyQuestionAmount" ColumnName="SurveyQuestionAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="prdc251CModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

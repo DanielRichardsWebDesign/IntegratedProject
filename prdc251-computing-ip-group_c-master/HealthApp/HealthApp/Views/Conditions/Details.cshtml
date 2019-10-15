@@ -1,0 +1,42 @@
+﻿@model HealthApp.Models.Condition
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Condition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Condition1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condition1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConditionNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConditionNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.PatientFName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.PatientFName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ConditionID }) |
+    @Html.ActionLink("Back to Dashboard", "Dashboard", "Home", new { area = "Home" }, null)
+</p>

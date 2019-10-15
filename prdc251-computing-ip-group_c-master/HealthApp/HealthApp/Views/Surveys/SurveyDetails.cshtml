@@ -1,0 +1,118 @@
+﻿@model IEnumerable<HealthApp.Models.Survey>
+
+@{
+    Layout = null;
+
+    @*Validates wehter or not a user has logged on*@
+    if (Session["LoggedDoctorId"] == null)
+    {
+        Response.Redirect("~/Login/DoctorLogin");
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Health Monitoring Application - Dashboard</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="navbar-brand text-white" href="@Url.Action("DoctorHome", "Home")">Health Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="@Url.Action("DoctorHome", "Home")">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Responses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("ToDoctorMessage", "MessagePage")">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("CreatedSurveys", "Surveys")">Surveys</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Alerts", "Alerts")">Alerts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="@Url.Action("Responses", "Responses")">Responses</a>
+                </li>
+            </ul>
+            <ul class="ml-auto">
+                <a class="btn btn-danger text-white" href="@Url.Action("LogOut", "Login")">Logout</a>
+            </ul>
+        </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="display-4">
+                Survey Details
+            </h1>
+            <p class="lead">View questions and answers of selected survey...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h4>Questions</h4>
+        <table class="table table-hover my-3">
+            <thead>
+                <tr>
+                    <th scope="col">Question ID</th>
+                    <th scope="col">Question</th>
+                    <th scope="col">Question Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    foreach (var question in item.Questions)
+                    {
+                        <tr>
+                            <td scope="col">@Html.DisplayFor(modelItem => question.QuestionID)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => question.Question1)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => question.QuestionType)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <h4>Answers</h4>
+        <table class="table table-hover my-3">
+            <thead>
+                <tr>
+                    <th scope="col">Question ID</th>
+                    <th scope="col">Answer ID</th>
+                    <th scope="col">Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    foreach (var question in item.Questions)
+                    {
+                        foreach (var answer in question.QuestionAnswers)
+                        {
+                            <tr>
+                                <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionID)</td>
+                                <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionAnswerID)</td>
+                                <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionAnswer1)</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

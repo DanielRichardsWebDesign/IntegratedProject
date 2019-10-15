@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Health Monitoring Application - Dashboard</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <a class="navbar-brand text-white" href="~/dashboard.cshtml">Health Monitor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Messages</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Alerts</a>
+                </li>
+            </ul>
+            <ul class="ml-auto">
+                <a class="btn btn-danger text-white" href="#">Logout</a>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid bg-primary text-white text-center">
+        <div class="container">
+            <h1 class="display-4">Welcome: /Insert Name Here/ </h1>
+            <p class="lead">View patients, approve requests, view messages and create questions...</p>
+        </div>
+    </div>
+
+    <div class="container my-5">
+
+        <div class="card">
+            <div class="card-header">
+                Find Patient
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Find Patient By: Name</h5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-info dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Patient...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                        <div class="dropdown-divider"></div>                      
+
+                        <a class="dropdown-item">Richards, Daniel (Placeholder)</a>
+                        <a class="dropdown-item">Browne, Jay (Placeholder)</a>
+                        <a class="dropdown-item">Edward, Callum (Placeholder)</a>
+                        <a class="dropdown-item">Haddy, Laura (Placeholder)</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4" />
+
+        <div class="card">
+            <div class="card-header">
+                View Patient Information
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Conditions</th>
+                            <th scope="col">Notes</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Chesty Cough</th>
+                            <td>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                            <td><a class="btn btn-outline-dark" href="#">Edit</a></td>
+                            <td><a class="btn btn-danger" href="#">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Broken Leg</th>
+                            <td>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                            <td><a class="btn btn-outline-dark" href="#">Edit</a></td>
+                            <td><a class="btn btn-danger" href="#">Delete</a></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Common Cold</th>
+                            <td>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                            <td><a class="btn btn-outline-dark" href="#">Edit</a></td>
+                            <td><a class="btn btn-danger" href="#">Delete</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-success" href="#">New Condition</a>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</body>
+</html>

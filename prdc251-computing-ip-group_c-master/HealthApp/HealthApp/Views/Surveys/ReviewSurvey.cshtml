@@ -1,0 +1,108 @@
+﻿@model IEnumerable<HealthApp.Models.Survey>
+@{
+    ViewBag.Title = "ReviewSurvey";
+
+    @*Validates wehter or not a user has logged on*@
+    if (Session["LoggedDoctorId"] == null)
+    {
+        Response.Redirect("~/Login/DoctorLogin");
+    }
+}
+
+<div class="container">
+
+    <h2>Review Survey</h2>
+    <br />
+    <h4>Survey Title: @Session["SurveyTitle"]</h4>
+    <br />
+    <h4 class="py-2">Question Amount: @Session["SurveyQuestionAmount"]</h4>
+    <br />
+
+    <h4>Survey Details</h4>
+    <table class="table my-3">
+        <thead>
+            <tr>
+                <th scope="col">Survey ID</th>
+                <th scope="col">Doctor ID</th>
+                <th scope="col">Patient ID</th>
+                <th scope="col">Survey Title</th>
+                <th scope="col">Survey Description</th>
+                <th scope="col">Question Amount</th>
+                <th scope="col">Frequency</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="col">@Html.DisplayFor(model => item.SurveyID)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.DoctorID)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.PatientID)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.SurveyTitle)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.SurveyDesc)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.SurveyQuestionAmount)</td>
+                    <td scope="col">@Html.DisplayFor(model => item.SurveyFreq)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Questions</h4>
+    <table class="table table-hover my-3">
+        <thead>
+            <tr>
+                <th scope="col">Question ID</th>
+                <th scope="col">Question</th>
+                <th scope="col">Question Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                foreach (var question in item.Questions)
+                {
+                    <tr>
+                        <td scope="col">@Html.DisplayFor(modelItem => question.QuestionID)</td>
+                        <td scope="col">@Html.DisplayFor(modelItem => question.Question1)</td>
+                        <td scope="col">@Html.DisplayFor(modelItem => question.QuestionType)</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <h4>Answers</h4>
+    <table class="table table-hover my-3">
+        <thead>
+            <tr>
+                <th scope="col">Question ID</th>
+                <th scope="col">Answer ID</th>
+                <th scope="col">Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                foreach (var question in item.Questions)
+                {
+                    foreach (var answer in question.QuestionAnswers)
+                    {
+                        <tr>
+                            <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionID)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionAnswerID)</td>
+                            <td scope="col">@Html.DisplayFor(modelItem => answer.QuestionAnswer1)</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+    @Html.ActionLink("Finalise Survey", "FinaliseSurvey")
+
+</div>
+
+
+
+
+

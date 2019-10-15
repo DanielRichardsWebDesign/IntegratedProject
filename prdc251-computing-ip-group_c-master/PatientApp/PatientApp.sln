@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientApp", "PatientApp\PatientApp.csproj", "{0AA986F4-9701-4E8F-B9AF-2A59E52A771E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientApp.Tests", "PatientApp.Tests\PatientApp.Tests.csproj", "{10E08538-C5CB-4E0E-91C3-6FD76DCCBF65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AA986F4-9701-4E8F-B9AF-2A59E52A771E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA986F4-9701-4E8F-B9AF-2A59E52A771E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA986F4-9701-4E8F-B9AF-2A59E52A771E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA986F4-9701-4E8F-B9AF-2A59E52A771E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10E08538-C5CB-4E0E-91C3-6FD76DCCBF65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E08538-C5CB-4E0E-91C3-6FD76DCCBF65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E08538-C5CB-4E0E-91C3-6FD76DCCBF65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E08538-C5CB-4E0E-91C3-6FD76DCCBF65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E5ED6AE-E9D3-4C06-A14D-567AE6BDE1F4}
+	EndGlobalSection
+EndGlobal

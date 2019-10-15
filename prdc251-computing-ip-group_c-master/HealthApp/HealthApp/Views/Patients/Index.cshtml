@@ -1,0 +1,57 @@
+﻿@model IEnumerable<HealthApp.Models.Patient>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientFName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientSName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientLoginCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientPass)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientFName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientSName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientLoginCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientPass)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PatientID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PatientID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PatientID })
+        </td>
+    </tr>
+}
+
+</table>
